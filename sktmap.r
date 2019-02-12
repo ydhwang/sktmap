@@ -10,7 +10,7 @@ library(sf)
 
 ## function definition
 
-coord_to_addr <- function(lat = 37.587228, lon = 126.993115, app_key) {
+tmap_rev_geocode <- function(lat = 37.587228, lon = 126.993115, app_key) {
   url <- paste0("https://api2.sktelecom.com/tmap/geo/reversegeocoding?version=1", 
                 "&lat=", lat, 
                 "&lon=", lon, 
@@ -53,7 +53,7 @@ coord_to_addr <- function(lat = 37.587228, lon = 126.993115, app_key) {
 # N61 - 새(도로명) 주소 도로명이 틀리나 동일구 내 1개의 건물명과 일치하는 경우, 해당하는 건물 좌표를 반환 
 # N62 - 새주소 도로명이 틀리나 동일구 내 1개의 건물명과 동명이 일치하는 경우, 해당하는 건물 좌표를 반환
 
-addr_to_coor <- function(addr, app_key) {
+tmap_geocode <- function(addr, app_key) {
   url <- paste0("https://api2.sktelecom.com/tmap/geo/fullAddrGeo?version=1&format=json&fullAddr=", 
                 addr, "&appKey=", app_key)
   request <- httr::GET(url, encode = "form")
@@ -62,141 +62,14 @@ addr_to_coor <- function(addr, app_key) {
   out_tbl
 }
 
-route_search <- function(lat_origin, lon_origin, lat_dest, lon_dest, app_key){
+tmap_route_search <- function(lat_origin, lon_origin, lat_dest, lon_dest, app_key){
   request_body <- list(startX = lon_origin, startY = lat_origin, endX = lon_dest, 
                   endY = lat_dest)
   request <- httr::POST("https://api2.sktelecom.com/tmap/routes?version=1", 
                   body = request_body, add_headers(.headers = c(appKey = app_key)), encode = "form")
-  response <- jsonlite::fromJSON(content(request, as = "text"))
+  response <- jsonlite::fromJSON(content(request, as = "text")) 
   
-  topo <- content(request, as = "text") %>% geo2topo 
-  geo <- topo2geo(topo)
-  sf_obj <- geojson_list(geo) %>% geojson_sf
-  sf_obj
+  sf_obj <- st_read(content(request, as = "text"))
+  sf_obj 
 }
-  
-## ----------------------------------
-# 
-# lat_origin <- 37.495894 
-# lon_origin <- 126.943945
-# lat_dest <- 37.554838 
-# lon_dest <- 126.971733
-# 
-# reqBody <- list(startX = lon_origin, startY = lat_origin, endX = lon_dest, 
-#                 endY = lat_dest)
-# request <- POST("https://api2.sktelecom.com/tmap/routes?version=1", 
-#                 body = reqBody, add_headers(.headers = c(appKey = app_key)), encode = "form")
-# response <- fromJSON(content(request, as = "text"))
-# # https://www.rdocumentation.org/packages/geojsonio/versions/0.6.0
-# 
-# response$features$geometry$coordinates # "routes" info
-# response$features$properties # properites of each segment of the route
-# 
-# route_path <- filter(response$features$geometry, type == "LineString")  %>% 
-#   select(coordinates)
-# 
-# 
-# lat_origin <- 37.495894 
-# lon_origin <- 126.943945
-# lat_dest <- 37.554838 
-# lon_dest <- 126.971733
-# 
-# reqBody <- list(startX = lon_origin, startY = lat_origin, endX = lon_dest, 
-#                 endY = lat_dest)
-# request <- POST("https://api2.sktelecom.com/tmap/routes?version=1", 
-#                 body = reqBody, add_headers(.headers = c(appKey = app_key)), encode = "form")
-# response <- fromJSON(content(request, as = "text"))
-# # https://www.rdocumentation.org/packages/geojsonio/versions/0.6.0
-# 
-# response$features$geometry$coordinates # "routes" info
-# response$features$properties # properites of each segment of the route
-# 
-# route_path <- filter(response$features$geometry, type == "LineString")  %>% 
-#   select(coordinates)
-# 
-# 
-# topo <- content(request, as = "text") %>% geo2topo 
-# geo <- topo2geo(topo)
-# sf_obj <- geojson_list(geo) %>% geojson_sf
-# 
-# 
-# 
-# leaflet() %>% setView(lng = 126.996949, lat = 37.55484, zoom = 12) %>% addTiles()
-# 
-# 
-# props <- response$features$properties %>% filter(!is.na(time))
-# 
-# dumb <- list()
-# for (k in seq_along(route_path[[1]])){
-#   tbl_k <- route_path[[1]][k][[1]] %>% as_tibble %>% 
-#     rename(long = V1, lat = V2)
-#   tbl_k$time <- props$time[k]
-#   tbl_k$distance <- props$distance[k]
-#   dumb[[k]] <- tbl_k
-# }
-# dumb <- bind_rows(dumb)
-# dumb <- dumb %>% mutate(speed = (distance/1000)/(time/60/60))
-# 
-# route_point <- filter(response$features$geometry, type == "Point") %>% 
-#   select(coordinates)
-# route_path <- do.call("rbind", route_path$coordinates) %>% 
-#   as_tibble %>% 
-#   rename(long = V1, lat = V2)
-# route_point <- do.call("rbind", route_point$coordinates) %>% 
-#   as_tibble %>% 
-#   rename(long = V1, lat = V2)
-# 
-# ggplot() + 
-#   geom_point(data = route_point, aes(x = long, y = lat), col = "red") +
-#   geom_path(data = route_path, aes(x = long, y = lat)) 
-# 
-# test_map <- get_map(location = c(126.94271, 37.49538, 126.99868, 37.58703), 
-#         source="stamen", maptype="toner-2011", crop=FALSE, zoom = 15) 
-# (gmap_out <- ggmap(test_map) +
-#   geom_path(data = dumb %>% mutate(speed = ifelse(speed>30, 30, speed)), aes(x = long, y = lat, col = speed), alpha = 0.7, lwd = 3) + 
-#   geom_point(data = route_point, aes(x = long, y = lat), col = "white") +
-#   scale_color_gradient(low = "red", high = "blue", name = "Speed (Km/h)"))
-# ggsave(gmap_out, file = "speed_map.png", width = 10, height = 10)
-# 
-# 
-# # geojsonR case.. probably not very useful
-# library(geojsonR)
-# temp <- FROM_GeoJson(content(request, as = "text")) 
-# temp$features
-# response$features
-# 
-# 
-# 
-# 
-# 
-# routes_to_eta <- function(origin_addr, dest_addr, app_key) {
-#   origin <- addrTocoor(origin_addr, app_key)
-#   dest <- addrTocoor(dest_addr, app_key)
-#   time <- tmap(origin$lat, origin$lon, dest$lat, dest$lon, app_key)
-#   return(time)
-# }
-# 
-# 
-# tmap <- function(lat_origin, lon_origin, lat_dest, lon_dest, app_key) {
-#   # returns the total travel time by the unit of seconds
-#   reqBody <- list(startX = lon_origin, startY = lat_origin, endX = lon_dest, 
-#                   endY = lat_dest)
-#   req <- POST("https://api2.sktelecom.com/tmap/routes?version=1", body = reqBody, 
-#               add_headers(.headers = c(appKey = app_key)), encode = "form")
-#   res <- fromJSON(content(req, "text"))
-#   
-#   a <- res$features
-#   res_list <- res$features
-#   res_elem <- res_list[[1]]
-#   res_elem_elem <- res_elem[[3]]
-#   time <- res_elem_elem$totalTime  # unit: second(s)
-#   
-#   time
-# }
-# 
-# 
-# 
-# 
-# 
-# 
-# # coord_to_addr(37.587228, 126.993115, app_key)
+
