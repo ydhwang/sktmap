@@ -1,10 +1,14 @@
 #' R package for SK Telecom TMAP API
 #' geocode  \code{\link{sktmap}}
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu}
+#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
 #' @param addr Target address character, which can be either old format (admin/lot number) or new format (road/building number)
-#' @param app_key SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}
-#' @return A tibble of 26 varialbles is returned. Its elements depend on how the address is provided into the function; when "new" address template is used (road - builidng number), `newLat` and `newLon` are returned, while the "old" address template is used `lat` and `lon` are returned.
+#' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1)
+#' @return A tibble of 26 varialbles is returned. Its elements depend on how the address is provided into the function.
+#' @details
+#' * `newLat`, `newLon` is returned When *new address template is used (road - builidng number).
+#' * `lat`, `lon` is returned When *old* address template is used (admin-lot number)
+#' @md
 #' @export
 
 tmap_geocode <- function(addr, app_key) {
@@ -19,11 +23,18 @@ tmap_geocode <- function(addr, app_key) {
 
 #' reverse geocode function \code{\link{sktmap}}
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu}
+#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
 #' @param lat Target latitude. Default value is for SKKU in Seoul, Korea.
 #' @param lon Target longitude. Default value is for SKKU in Seoul, Korea.
-#' @param app_key SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}
-#' @return A tibble of 18 varialbles is returned. addressType=A10: gives the "full set" of the address of the triple of (1) administrative district name, (2) old address (admin-code or lot-number based), (3) new address (road-centric). When returned, fullAddress are provided after separated accordingly; admin_name, jibun_address, and road_address.
+#' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1)
+#' @return A tibble of 18 varialbles is returned.
+#' @details
+#' `addressType=A10` in the API gives the "full set" of the address; this is one of the options in TMAP API. In the package A10 is set as default. For the other options, check  [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1). This option provides the triple of:
+#' 1. administrative district name (e.g., Sajikdong)
+#' 1. old address (admin-code and lot-number based)
+#' 1. new address (road-centric)
+#' When returned, fullAddress are provided after separated accordingly; admin_name, jibun_address, and road_address.
+#' @md
 #' @export
 
 tmap_rev_geocode <- function(lat = 37.587228, lon = 126.993115, app_key) {
@@ -48,12 +59,12 @@ tmap_rev_geocode <- function(lat = 37.587228, lon = 126.993115, app_key) {
 
 #' route search function \code{\link{sktmap}}
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu}
+#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
 #' @param lat_origin origin's latitude.
 #' @param lon_origin origin's longitude.
 #' @param lat_dest destination latitude.
 #' @param lon_dest destination longitude.
-#' @param app_key SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}
+#' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1).
 #' @return A Simple feature collection with 28 features and 16 fields. For more on simple feature in R, see sf package's manual.
 #' @export
 

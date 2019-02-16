@@ -11,14 +11,23 @@ tmap_rev_geocode(lat = 37.587228, lon = 126.993115, app_key)
 
 \item{lon}{Target longitude. Default value is for SKKU in Seoul, Korea.}
 
-\item{app_key}{SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}}
+\item{app_key}{SK Telecom OPEN API perosonal key from \href{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}{TMAP webpage.}}
 }
 \value{
-A tibble of 18 varialbles is returned. addressType=A10: gives the "full set" of the address of the triple of (1) administrative district name, (2) old address (admin-code or lot-number based), (3) new address (road-centric). When returned, fullAddress are provided after separated accordingly; admin_name, jibun_address, and road_address.
+A tibble of 18 varialbles is returned.
 }
 \description{
 reverse geocode function \code{\link{sktmap}}
 }
+\details{
+\code{addressType=A10} in the API gives the "full set" of the address; this is one of the options in TMAP API. In the package A10 is set as default. For the other options, check  \href{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}{TMAP webpage.}. This option provides the triple of:
+\enumerate{
+\item administrative district name (e.g., Sajikdong)
+\item old address (admin-code and lot-number based)
+\item new address (road-centric)
+When returned, fullAddress are provided after separated accordingly; admin_name, jibun_address, and road_address.
+}
+}
 \author{
-YD Hwang \email{yhwang@g.skku.edu}
+YD Hwang \email{yhwang@g.skku.edu} and JK Kim \email{jkim@iastate.edu}
 }

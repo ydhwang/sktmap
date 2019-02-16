@@ -10,15 +10,21 @@ tmap_geocode(addr, app_key)
 \arguments{
 \item{addr}{Target address character, which can be either old format (admin/lot number) or new format (road/building number)}
 
-\item{app_key}{SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}}
+\item{app_key}{SK Telecom OPEN API perosonal key from \href{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}{TMAP webpage.}}
 }
 \value{
-A tibble of 26 varialbles is returned. Its elements depend on how the address is provided into the function; when "new" address template is used (road - builidng number), `newLat` and `newLon` are returned, while the "old" address template is used `lat` and `lon` are returned.
+A tibble of 26 varialbles is returned. Its elements depend on how the address is provided into the function.
 }
 \description{
 R package for SK Telecom TMAP API
 geocode  \code{\link{sktmap}}
 }
+\details{
+\itemize{
+\item \code{newLat}, \code{newLon} is returned When *new address template is used (road - builidng number).
+\item \code{lat}, \code{lon} is returned When \emph{old} address template is used (admin-lot number)
+}
+}
 \author{
-YD Hwang \email{yhwang@g.skku.edu}
+YD Hwang \email{yhwang@g.skku.edu} and JK Kim \email{jkim@iastate.edu}
 }

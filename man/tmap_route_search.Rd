@@ -15,7 +15,7 @@ tmap_route_search(lat_origin, lon_origin, lat_dest, lon_dest, app_key)
 
 \item{lon_dest}{destination longitude.}
 
-\item{app_key}{SK Telecom OPEN API perosonal key \url{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}}
+\item{app_key}{SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1).}
 }
 \value{
 A Simple feature collection with 28 features and 16 fields. For more on simple feature in R, see sf package's manual.
@@ -24,5 +24,5 @@ A Simple feature collection with 28 features and 16 fields. For more on simple f
 route search function \code{\link{sktmap}}
 }
 \author{
-YD Hwang \email{yhwang@g.skku.edu}
+YD Hwang \email{yhwang@g.skku.edu} and JK Kim \email{jkim@iastate.edu}
 }

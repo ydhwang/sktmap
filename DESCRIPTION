@@ -2,7 +2,7 @@ Package: sktmap
 Type: Package
 Title: sktmap: R package for SK Telecom TMAP API
 Version: 0.1.0
-Author: Youngdeok Hwang <yhwang@g.skku.edu>
+Author: Youngdeok Hwang <yhwang@g.skku.edu> and Jae-Kwang Kim <jkim@iastate.edu>
 Maintainer: Youngdeok Hwang <yhwang@g.skku.edu>
 Description: This package provides an R i/o interface for SK Telecom TMAP API. The users need API Key obtained from SKT. 
 License: MIT + file LICENSE
