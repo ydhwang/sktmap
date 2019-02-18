@@ -3,9 +3,9 @@
 \name{tmap_geocode}
 \alias{tmap_geocode}
 \title{R package for SK Telecom TMAP API
-geocode  \code{\link{sktmap}}}
+geocode}
 \usage{
-tmap_geocode(addr, app_key)
+tmap_geocode(addr = "서울시 종로구 성균관로 25-2", app_key)
 }
 \arguments{
 \item{addr}{Target address character, which can be either old format (admin/lot number) or new format (road/building number)}
@@ -17,12 +17,13 @@ A tibble of 26 varialbles is returned. Its elements depend on how the address is
 }
 \description{
 R package for SK Telecom TMAP API
-geocode  \code{\link{sktmap}}
+geocode
 }
 \details{
+This function is \emph{not} to be used for a lazy search; for a POI type search, change the code by yourself.
 \itemize{
-\item \code{newLat}, \code{newLon} is returned When *new address template is used (road - builidng number).
-\item \code{lat}, \code{lon} is returned When \emph{old} address template is used (admin-lot number)
+\item (\code{newLat}, \code{newLon}) is returned When \emph{new} address template is used (road - builidng number).
+\item (\code{lat}, \code{lon}) is returned When \emph{old} address template is used (admin-lot number)
 }
 }
 \author{

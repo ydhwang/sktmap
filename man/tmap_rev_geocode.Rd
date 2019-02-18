@@ -2,7 +2,7 @@
 % Please edit documentation in R/sktmap.r
 \name{tmap_rev_geocode}
 \alias{tmap_rev_geocode}
-\title{reverse geocode function \code{\link{sktmap}}}
+\title{reverse geocode function}
 \usage{
 tmap_rev_geocode(lat = 37.587228, lon = 126.993115, app_key)
 }
@@ -17,7 +17,7 @@ tmap_rev_geocode(lat = 37.587228, lon = 126.993115, app_key)
 A tibble of 18 varialbles is returned.
 }
 \description{
-reverse geocode function \code{\link{sktmap}}
+reverse geocode function
 }
 \details{
 \code{addressType=A10} in the API gives the "full set" of the address; this is one of the options in TMAP API. In the package A10 is set as default. For the other options, check  \href{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}{TMAP webpage.}. This option provides the triple of:

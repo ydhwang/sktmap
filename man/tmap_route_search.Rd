@@ -2,7 +2,7 @@
 % Please edit documentation in R/sktmap.r
 \name{tmap_route_search}
 \alias{tmap_route_search}
-\title{route search function \code{\link{sktmap}}}
+\title{route search function}
 \usage{
 tmap_route_search(lat_origin, lon_origin, lat_dest, lon_dest, app_key)
 }
@@ -15,13 +15,13 @@ tmap_route_search(lat_origin, lon_origin, lat_dest, lon_dest, app_key)
 
 \item{lon_dest}{destination longitude.}
 
-\item{app_key}{SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1).}
+\item{app_key}{SK Telecom OPEN API perosonal key from \href{http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1}{TMAP webpage.}.}
 }
 \value{
-A Simple feature collection with 28 features and 16 fields. For more on simple feature in R, see sf package's manual.
+A Simple feature collection with 28 features and 16 fields. For more on simple feature in R, see \href{https://cran.r-project.org/web/packages/sf/index.html}{sf package.}
 }
 \description{
-route search function \code{\link{sktmap}}
+route search function
 }
 \author{
 YD Hwang \email{yhwang@g.skku.edu} and JK Kim \email{jkim@iastate.edu}
