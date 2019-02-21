@@ -100,7 +100,7 @@ tmap_route_search <- function(lat_origin, lon_origin, lat_dest, lon_dest, app_ke
                   body = request_body, add_headers(.headers = c(appKey = app_key)), encode = "form")
   response <- jsonlite::fromJSON(content(request, as = "text"))
 
-  sf_obj <- st_read(content(request, as = "text"))
+  sf_obj <- st_read(content(request, as = "text"), quiet = TRUE)
   sf_obj
 }
 
