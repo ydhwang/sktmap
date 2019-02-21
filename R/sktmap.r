@@ -12,7 +12,7 @@
 #' @md
 #' @export
 
-tmap_geocode <- function(add, app_key) {
+tmap_geocode <- function(addr, app_key) {
   # a part for query format is needed here
   url <- paste0("https://api2.sktelecom.com/tmap/geo/fullAddrGeo?version=1&format=json&fullAddr=",
                 addr, "&appKey=", app_key)
