@@ -88,7 +88,7 @@ tmap_rev_geocode <- function(lat = 37.587228, lon = 126.993115, app_key) {
 #' @param lon_origin origin's longitude.
 #' @param lat_dest destination latitude.
 #' @param lon_dest destination longitude.
-#' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1).
+#' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1)
 #' @return A Simple feature collection with 28 features and 16 fields. For more on simple feature in R, see [sf package.](https://cran.r-project.org/web/packages/sf/index.html)
 #' @md
 #' @export
