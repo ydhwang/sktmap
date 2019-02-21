@@ -1,7 +1,7 @@
 #' R package for SK Telecom TMAP API
 #' geocode
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
+#' @author Youngdeok Hwang \email{yhwang@@g.skku.edu} and Jae-kwang Kim \email{jkim@@iastate.edu}
 #' @param addr Target address character, which can be either old format (admin/lot number) or new format (road/building number)
 #' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1)
 #' @return A tibble of 26 varialbles is returned. Its elements depend on how the address is provided into the function.
@@ -12,7 +12,7 @@
 #' @md
 #' @export
 
-tmap_geocode <- function(addr = "서울시 종로구 성균관로 25-2", app_key) {
+tmap_geocode <- function(add, app_key) {
   # a part for query format is needed here
   url <- paste0("https://api2.sktelecom.com/tmap/geo/fullAddrGeo?version=1&format=json&fullAddr=",
                 addr, "&appKey=", app_key)
@@ -25,7 +25,7 @@ tmap_geocode <- function(addr = "서울시 종로구 성균관로 25-2", app_key
 
 #' reverse geocode function
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
+#' @author Youngdeok Hwang \email{yhwang@@g.skku.edu} and Jae-kwang Kim \email{jkim@@iastate.edu}
 #' @param lat Target latitude. Default value is for SKKU in Seoul, Korea.
 #' @param lon Target longitude. Default value is for SKKU in Seoul, Korea.
 #' @param app_key SK Telecom OPEN API perosonal key from [TMAP webpage.](http://tmapapi.sktelecom.com/main.html#web/guide/webGuide.sample1)
@@ -83,7 +83,7 @@ tmap_rev_geocode <- function(lat = 37.587228, lon = 126.993115, app_key) {
 
 #' route search function
 #'
-#' @author YD Hwang \email{yhwang@@g.skku.edu} and JK Kim \email{jkim@@iastate.edu}
+#' @author Youngdeok Hwang \email{yhwang@@g.skku.edu} and Jae-kwang Kim \email{jkim@@iastate.edu}
 #' @param lat_origin origin's latitude.
 #' @param lon_origin origin's longitude.
 #' @param lat_dest destination latitude.
